@@ -1,0 +1,375 @@
+const fontsData = [
+    { name: "Calligraphia One", fontFamily: "CalligraphiaOne", defaultText: "Aa" },
+    { name: "Allegretto Script Two Regular", fontFamily: "AllegrettoScriptTwo", defaultText: "Aa" },
+    { name: "Allegretto Script One Regular", fontFamily: "AllegrettoScriptOne", defaultText: "Aa" },
+    { name: "AllegroScript Italic", fontFamily: "AllegroScriptItalic", defaultText: "Aa" },
+    { name: "Segoe Script", fontFamily: "SegoeScript", defaultText: "Aa" },
+    { name: "Brock Script D", fontFamily: "BrockScriptD", defaultText: "Aa" },
+    { name: "Discipuli Britannica", fontFamily: "DiscipuliBritannica", defaultText: "Aa" },
+    { name: "PresentScript", fontFamily: "PresentScript", defaultText: "Aa" },
+    { name: "Euroscript Pro", fontFamily: "EuroscriptPro", defaultText: "Aa" },
+    { name: "Lovely Grace BG", fontFamily: "LovelyGrace", defaultText: "Aa" },
+    { name: "A Day Without Sun", fontFamily: "ADayWithoutSun", defaultText: "Aa" },
+    { name: "Ancient Kyiv", fontFamily: "AncientKyiv", defaultText: "Aa" },
+    { name: "AA Higherup", fontFamily: "AAHigherup", defaultText: "Aa" },
+    { name: "Ahellya Italic", fontFamily: "AhellyaItalic", defaultText: "Aa" },
+    { name: "Ambassadore Type Shura", fontFamily: "AmbassadoreTypeShura", defaultText: "Aa" },
+    { name: "Ambassadore Type Italic", fontFamily: "AmbassadoreTypeItalic", defaultText: "Aa" },
+    { name: "Antique Olive Italic", fontFamily: "AntiqueOliveItalic", defaultText: "Aa" },
+    { name: "Ubuntu Mono Bold", fontFamily: "UbuntuMonoBold", defaultText: "Aa" },
+    { name: "VDS Bold", fontFamily: "VDSBold", defaultText: "Aa" },
+    { name: "Vera Humana 95 Bold Italic", fontFamily: "VeraHumana95BoldItalic", defaultText: "Aa" },
+    { name: "VDS Italic", fontFamily: "VDSItalic", defaultText: "Aa" },
+    { name: "VDS Italic New", fontFamily: "VDSItalicNew", defaultText: "Aa" },
+    { name: "VDS New", fontFamily: "VDSNew", defaultText: "Aa" },
+    { name: "VDS Thin", fontFamily: "VDSThin", defaultText: "Aa" },
+    { name: "VDS Thin Italic", fontFamily: "VDSThinItalic", defaultText: "Aa" },
+    { name: "Vodafone ExB", fontFamily: "VodafoneExB", defaultText: "Aa" },
+    { name: "Vodafone Rg Bold", fontFamily: "VodafoneRgBold", defaultText: "Aa" },
+    { name: "Watc", fontFamily: "Watc", defaultText: "Aa" },
+    { name: "Aroania", fontFamily: "Aroania", defaultText: "Aa" },
+    { name: "Autoradiographic Rg Italic", fontFamily: "AutoradiographicRgItalic", defaultText: "Aa" },
+    { name: "Avdira", fontFamily: "Avdira", defaultText: "Aa" },
+    { name: "Aver Bold Italic", fontFamily: "AverBoldItalic", defaultText: "Aa" },
+    { name: "Azbuka02 Italic", fontFamily: "Azbuka02Italic", defaultText: "Aa" },
+    { name: "Bodoni Cyrillic FWF Bold Italic", fontFamily: "BodoniCyrillicFWFBoldItalic", defaultText: "Aa" },
+    { name: "Blogger Sans Medium Regular", fontFamily: "BloggerSansMediumRegular", defaultText: "Aa" },
+    { name: "Book Antiqua Italic", fontFamily: "BookAntiquaItalic", defaultText: "Aa" },
+    { name: "Brill Roman", fontFamily: "BrillRoman", defaultText: "Aa" },
+    { name: "Bravo Regular", fontFamily: "BravoRegular", defaultText: "Aa" },
+    { name: "Candara Italic", fontFamily: "CandaraItalic", defaultText: "Aa" },
+    { name: "Century Gothic Italic", fontFamily: "CenturyGothicItalic", defaultText: "Aa" },
+    { name: "Century Schoolbook Italic", fontFamily: "CenturySchoolbookItalic", defaultText: "Aa" },
+    { name: "Century Schoolbook Bold", fontFamily: "CenturySchoolbookBold", defaultText: "Aa" },
+    { name: "Champagne & Limousines", fontFamily: "ChampagneLimousines", defaultText: "Aa" },
+    { name: "Courier New Bold", fontFamily: "CourierNewBold", defaultText: "Aa" },
+    { name: "Courier MCY Bold", fontFamily: "CourierMCYBold", defaultText: "Aa" },
+    { name: "Courier TM Bold Italic", fontFamily: "CourierTMBoldItalic", defaultText: "Aa" },
+    { name: "Cyrillic Garamond Italic", fontFamily: "CyrillicGaramondItalic", defaultText: "Aa" },
+    { name: "DejaVu Sans Mono Oblique", fontFamily: "DejaVuSansMonoOblique", defaultText: "Aa" },
+    { name: "Driver Gothic Pro Regular", fontFamily: "DriverGothicProRegular", defaultText: "Aa" },
+    { name: "Droid Sans Bold", fontFamily: "DroidSansBold", defaultText: "Aa" },
+    { name: "Elementa Cyr Bold", fontFamily: "ElementaCyrBold", defaultText: "Aa" },
+    { name: "Elementa Cyr Bold Italic SC", fontFamily: "ElementaCyrBoldItalicSC", defaultText: "Aa" },
+    { name: "ER Kurier 1251 Bold Italic", fontFamily: "ERKurier1251BoldItalic", defaultText: "Aa" },
+    { name: "Eurofurence Italic", fontFamily: "EurofurenceItalic", defaultText: "Aa" },
+    { name: "Excelsior LT Std Italic", fontFamily: "ExcelsiorLTStdItalic", defaultText: "Aa" },
+    { name: "Exo 2 Extra Light Italic", fontFamily: "Exo2ExtraLightItalic", defaultText: "Aa" },
+    { name: "Exo 2 Medium Italic", fontFamily: "Exo2MediumItalic", defaultText: "Aa" },
+    { name: "Fagot Condensed", fontFamily: "FagotCondensed", defaultText: "Aa" },
+    { name: "Fagot Condensed Italic", fontFamily: "FagotCondensedItalic", defaultText: "Aa" },
+    { name: "Gabriela Regular", fontFamily: "GabrielaRegular", defaultText: "Aa" },
+    { name: "Humnst777 TL Bold Italic", fontFamily: "Humnst777TLBoldItalic", defaultText: "Aa" },
+    { name: "Kovanovic Cirilica Stampana", fontFamily: "KovanovicCirilicaStampana", defaultText: "Aa" },
+    { name: "League Gothic Cyrillic", fontFamily: "LeagueGothicCyrillic", defaultText: "Aa" },
+    { name: "Ropa Sans SC Italic", fontFamily: "RopaSansSCItalic", defaultText: "Aa" },
+    { name: "Yiggivoo Unicode", fontFamily: "YiggivooUnicode", defaultText: "Aa" },
+    { name: "Yiggivoo Unicode Italic", fontFamily: "YiggivooUnicodeItalic", defaultText: "Aa" }
+];
+
+let currentIndex = 0;
+let currentHue = 0;
+let currentBrightness = 100;
+let currentWeight = 400;
+let currentAlignment = 'center';
+let generatedDataUrl = null; 
+
+const fontPreview = document.getElementById('fontPreview');
+const fontName = document.getElementById('fontName');
+const textInput = document.getElementById('textInput');
+const sizeSlider = document.getElementById('sizeSlider');
+const sizeLabel = document.getElementById('sizeLabel');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const applyBtn = document.getElementById('applyBtn');
+const alignButtons = document.querySelectorAll('.align-btn');
+
+const paletteBtn = document.getElementById('paletteBtn');
+const colorPanel = document.getElementById('colorPanel');
+const colorSlider = document.getElementById('colorSlider');
+const brightnessSlider = document.getElementById('brightnessSlider');
+const brightLabel = document.getElementById('brightLabel');
+const weightSlider = document.getElementById('weightSlider');
+const weightLabel = document.getElementById('weightLabel');
+const indicator = document.getElementById('indicator');
+
+const searchBtn = document.getElementById('searchBtn');
+const searchPanel = document.getElementById('searchPanel');
+const fontSearchInput = document.getElementById('fontSearchInput');
+const searchResults = document.getElementById('searchResults');
+
+const downloadModal = document.getElementById('downloadModal');
+const confirmDownloadBtn = document.getElementById('confirmDownloadBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+function updateSlider(index) {
+    const currentFont = fontsData[index];
+    fontName.textContent = currentFont.name;
+    fontPreview.style.fontFamily = currentFont.fontFamily;
+    
+    if (textInput.value.trim() === "") {
+        fontPreview.textContent = currentFont.defaultText;
+    } else {
+        fontPreview.textContent = textInput.value;
+    }
+}
+
+function updateTextColor() {
+    const hslColor = `hsl(${currentHue}, 100%, ${currentBrightness}%)`;
+    fontPreview.style.color = hslColor;
+    indicator.style.backgroundColor = hslColor;
+    brightnessSlider.style.background = `linear-gradient(to right, #000000, hsl(${currentHue}, 100%, 50%), #ffffff)`;
+    
+    if (parseInt(currentBrightness) < 30) {
+        const opacity = (30 - currentBrightness) / 30;
+        fontPreview.style.textShadow = `0 0 12px rgba(255, 255, 255, ${opacity * 0.85}), 0 0 4px rgba(255, 255, 255, ${opacity * 0.5})`;
+    } else {
+        fontPreview.style.textShadow = '0 0 20px rgba(255, 255, 255, 0.15)';
+    }
+}
+
+searchBtn.addEventListener('click', () => {
+    searchBtn.classList.toggle('active');
+    searchPanel.classList.toggle('open');
+    if (searchPanel.classList.contains('open')) {
+        fontSearchInput.value = '';
+        renderSearchResults('');
+        fontSearchInput.focus();
+    }
+});
+
+fontSearchInput.addEventListener('input', (e) => {
+    renderSearchResults(e.target.value);
+});
+
+function renderSearchResults(query) {
+    searchResults.innerHTML = '';
+    const filtered = fontsData.filter(f => f.name.toLowerCase().includes(query.toLowerCase()));
+    
+    if (filtered.length === 0) {
+        const noResult = document.createElement('div');
+        noResult.className = 'search-item';
+        noResult.style.color = '#636370';
+        noResult.textContent = 'Ничего не найдено';
+        searchResults.appendChild(noResult);
+        return;
+    }
+
+    filtered.forEach(font => {
+        const item = document.createElement('div');
+        item.className = 'search-item';
+        item.textContent = font.name;
+        item.addEventListener('click', () => {
+            currentIndex = fontsData.indexOf(font);
+            updateSlider(currentIndex);
+            searchBtn.classList.remove('active');
+            searchPanel.classList.remove('open');
+        });
+        searchResults.appendChild(item);
+    });
+}
+
+paletteBtn.addEventListener('click', () => {
+    paletteBtn.classList.toggle('active');
+    colorPanel.classList.toggle('open');
+});
+
+colorSlider.addEventListener('input', (e) => {
+    currentHue = e.target.value;
+    updateTextColor();
+});
+
+brightnessSlider.addEventListener('input', (e) => {
+    currentBrightness = e.target.value;
+    brightLabel.textContent = `${currentBrightness}%`;
+    updateTextColor();
+});
+
+weightSlider.addEventListener('input', (e) => {
+    currentWeight = e.target.value;
+    weightLabel.textContent = currentWeight;
+    fontPreview.style.fontWeight = currentWeight;
+});
+
+sizeSlider.addEventListener('input', (e) => {
+    const currentSize = e.target.value;
+    fontPreview.style.fontSize = `${currentSize}px`;
+    sizeLabel.textContent = `${currentSize}px`;
+});
+
+textInput.addEventListener('input', () => {
+    updateSlider(currentIndex);
+});
+
+alignButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        alignButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active'); 
+        currentAlignment = button.getAttribute('data-align');
+        fontPreview.style.textAlign = currentAlignment;
+    });
+});
+
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex === 0) ? fontsData.length - 1 : currentIndex - 1;
+    updateSlider(currentIndex);
+});
+
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex === fontsData.length - 1) ? 0 : currentIndex + 1;
+    updateSlider(currentIndex);
+});
+
+applyBtn.addEventListener('click', () => {
+    const textToRender = fontPreview.textContent;
+    const activeFont = fontsData[currentIndex];
+    const userSize = parseInt(sizeSlider.value);
+    
+    const scaleFactor = 5; 
+    const basePadding = 40; 
+    const canvasPadding = basePadding * scaleFactor; 
+
+    const previewRect = fontPreview.getBoundingClientRect();
+    const computedStyle = window.getComputedStyle(fontPreview);
+    
+    const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+    const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+    const previewTextWidth = previewRect.width - paddingLeft - paddingRight;
+
+    document.fonts.ready.then(() => {
+        const testCanvas = document.createElement('canvas');
+        const testCtx = testCanvas.getContext('2d');
+        const fontSize = userSize * scaleFactor;
+        testCtx.font = `${currentWeight} ${fontSize}px "${activeFont.fontFamily}"`;
+
+        const maxCanvasTextWidth = previewTextWidth * scaleFactor;
+
+        const lines = [];
+        const paragraphs = textToRender.split('\n');
+
+        paragraphs.forEach(paragraph => {
+            const words = paragraph.split(' ');
+            let currentLine = '';
+
+            words.forEach(word => {
+                let testLine = currentLine + (currentLine ? ' ' : '') + word;
+                let metrics = testCtx.measureText(testLine);
+
+                if (metrics.width <= maxCanvasTextWidth) {
+                    currentLine = testLine;
+                } else {
+                    if (testCtx.measureText(word).width > maxCanvasTextWidth) {
+                        for (let i = 0; i < word.length; i++) {
+                            let char = word[i];
+                            let testCharLine = currentLine + (currentLine && i === 0 ? ' ' : '') + char;
+                            
+                            if (testCtx.measureText(testCharLine).width <= maxCanvasTextWidth) {
+                                currentLine = testCharLine;
+                            } else {
+                                if (currentLine) lines.push(currentLine);
+                                currentLine = char;
+                            }
+                        }
+                    } else {
+                        if (currentLine) lines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+            });
+            if (currentLine) lines.push(currentLine);
+        });
+
+        const lineHeight = fontSize * 1.5;
+        const bottomBuffer = fontSize * 0.8; 
+        const totalTextHeight = (lines.length * lineHeight) + bottomBuffer;
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = maxCanvasTextWidth + (canvasPadding * 2);
+        canvas.height = totalTextHeight + (canvasPadding * 2);
+
+        // ХОЛСТ ОСТАЕТСЯ ПРОЗРАЧНЫМ! Никакой заливки цветом тут нет.
+
+        ctx.font = `${currentWeight} ${fontSize}px "${activeFont.fontFamily}"`;
+        
+        // Никакого размытия и свечения на самом PNG файле
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+
+        ctx.fillStyle = `hsl(${currentHue}, 100%, ${currentBrightness}%)`;
+        ctx.textBaseline = 'top'; 
+
+        let xPos = canvasPadding;
+        if (currentAlignment === 'center') {
+            ctx.textAlign = 'center';
+            xPos = canvas.width / 2;
+        } else if (currentAlignment === 'right') {
+            ctx.textAlign = 'right';
+            xPos = canvas.width - canvasPadding;
+        } else {
+            ctx.textAlign = 'left';
+        }
+
+        let yPos = canvasPadding;
+        lines.forEach(line => {
+            ctx.fillText(line, xPos, yPos);
+            yPos += lineHeight;
+        });
+
+        generatedDataUrl = canvas.toDataURL("image/png");
+
+        const modalBox = downloadModal.querySelector('div');
+        
+        let previewImg = document.getElementById('finalMobileImage');
+        if (!previewImg) {
+            previewImg = document.createElement('img');
+            previewImg.id = 'finalMobileImage';
+            previewImg.style.width = '100%';
+            previewImg.style.maxHeight = '180px';
+            previewImg.style.objectFit = 'contain';
+            previewImg.style.borderRadius = '10px';
+            previewImg.style.marginBottom = '15px';
+            previewImg.style.border = '1px dashed rgba(255,255,255,0.3)';
+            modalBox.insertBefore(previewImg, confirmDownloadBtn);
+        }
+        previewImg.src = generatedDataUrl;
+
+        // --- ФИШКА ТУТ: Если текст тёмный/чёрный, то ПРЕВЬЮШКЕ в модалке принудительно даём БЕЛЫЙ фон, чтобы её видели при зажатии пальцем ---
+        if (parseInt(currentBrightness) < 30) {
+            previewImg.style.backgroundColor = '#ffffff';
+        } else {
+            previewImg.style.backgroundColor = 'rgba(0,0,0,0.2)'; // Для обычного светлого текста оставляем стандартный полутёмный фон
+        }
+
+        const textDesc = modalBox.querySelector('p');
+        if (textDesc) {
+            textDesc.innerHTML = 'Нажмите «Скачать PNG».<br><strong style="color: #ffcc00; display: block; margin-top: 8px; font-size: 13px;">Если кнопка не работает (iPhone/Google chrome) — попробуйте другой браузер (Safari) или просто зажмите картинку ниже пальцем и выберите «Сохранить в Фото».</strong>';
+        }
+
+        downloadModal.style.display = 'flex';
+
+        closeModalBtn.onclick = () => {
+            downloadModal.style.display = 'none';
+        };
+    });
+});
+
+confirmDownloadBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!generatedDataUrl) return;
+
+    const filename = `font_${Date.now()}.png`;
+
+    const link = document.createElement('a');
+    link.style.display = 'none';
+    link.href = generatedDataUrl;
+    link.setAttribute('download', filename);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+
+updateSlider(currentIndex);
+updateTextColor();

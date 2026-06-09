@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Font & Color Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="slider-container">
+        
+        <div class="beta-text">Бета-тест, возможны баги</div>
+
+        <div class="input-box">
+            <input type="text" id="textInput" class="custom-input" placeholder="Введите свой текст...">
+        </div>
+
+        <div class="control-box">
+            <span class="control-label">Размер</span>
+            <input type="range" id="sizeSlider" class="range-slider" min="16" max="100" value="48">
+            <span class="control-label" id="sizeLabel" style="min-width:35px; text-align:right;">48px</span>
+        </div>
+
+        <div class="search-panel" id="searchPanel">
+            <input type="text" id="fontSearchInput" class="custom-input" placeholder="Название шрифта...">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <div class="color-picker-panel" id="colorPanel">
+            <div class="control-box">
+                <span class="control-label">Цвет</span>
+                <input type="range" id="colorSlider" class="range-slider" min="0" max="360" value="0">
+                <span class="control-label" style="min-width:20px; text-align:right;"><span class="color-indicator" id="indicator"></span></span>
+            </div>
+            <div class="control-box">
+                <span class="control-label">Яркость</span>
+                <input type="range" id="brightnessSlider" class="range-slider" min="0" max="100" value="100">
+                <span class="control-label" id="brightLabel" style="min-width:35px; text-align:right;">100%</span>
+            </div>
+            <div class="control-box" id="weightBox">
+                <span class="control-label">Жирность</span>
+                <input type="range" id="weightSlider" class="range-slider" min="100" max="900" step="100" value="400">
+                <span class="control-label" id="weightLabel" style="min-width:35px; text-align:right;">400</span>
+            </div>
+        </div>
+
+        <div class="slider-wrapper">
+            <div class="font-card">
+                <div class="font-preview" id="fontPreview">Aa</div>
+                <div class="font-name" id="fontName">21063.otf</div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <div class="left-tools">
+                <button class="align-btn" data-align="left" id="alignLeft">
+                    <svg viewBox="0 0 24 24"><path d="M3 15h18v2H3zm0-4h12v2H3zm0-4h18v2H3zm0 12h12v2H3z"/></svg>
+                </button>
+                <button class="align-btn active" data-align="center" id="alignCenter">
+                    <svg viewBox="0 0 24 24"><path d="M3 15h18v2H3zm4-4h10v2H7zm-4-4h18v2H3zm4 12h10v2H7z"/></svg>
+                </button>
+                <button class="align-btn" data-align="right" id="alignRight">
+                    <svg viewBox="0 0 24 24"><path d="M3 15h18v2H3zm6-4h12v2H9zm-6-4h18v2H3zm6 12h12v2H9z"/></svg>
+                </button>
+                
+                <button class="palette-btn" id="paletteBtn">
+                    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10c0 5.523 4.477 10 10 10a1 1 0 0 0 1-1v-1.5a2.5 2.5 0 0 1 2.5-2.5H19a3 3 0 0 0 3-3c0-6.627-4.477-11-10-11zm-5.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3.5 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
+                </button>
+
+                <button class="search-btn" id="searchBtn">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <button class="nav-btn" id="prevBtn">&#10094;</button>
+                <button class="nav-btn" id="nextBtn">&#10095;</button>
+            </div>
+        </div>
+
+        <button class="action-btn" id="applyBtn">Создать</button>
+    </div>
+
+    <div class="bottom-branding-panel">
+        <div class="brand-badge">
+            <img src="podp.svg" alt="Icon">
+        </div>
+        
+        <div class="brand-divider"></div>
+        
+        <a href="https://github.com/Gerther" target="_blank" class="github-link-btn" title="Открыть GitHub">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+        </a>
+    </div>
+
+    <div id="downloadModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 9, 20, 0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 24px; border-radius: 24px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
+            <h3 style="margin-bottom: 12px; font-size: 18px; font-weight: 600;">Готово!</h3>
+            <p style="font-size: 14px; color: #8a8a9e; margin-bottom: 20px;">Нажмите кнопку ниже, чтобы сохранить прозрачный PNG в х5 качестве.</p>
+            <a id="confirmDownloadBtn" href="#" download="text_preview.png" style="display: block; width: 100%; padding: 14px; background: #ffffff; color: #0b0914; border-radius: 14px; text-decoration: none; font-weight: 600; font-size: 15px; margin-bottom: 10px; transition: background 0.2s;">Скачать PNG</a>
+            <button id="closeModalBtn" style="width: 100%; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; border-radius: 14px; font-size: 14px; cursor: pointer;">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
