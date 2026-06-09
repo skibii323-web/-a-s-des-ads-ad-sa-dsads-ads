@@ -71,6 +71,7 @@ let currentIndex = 0;
 let currentHue = 0;
 let currentBrightness = 100;
 let currentWeight = 400;
+let currentSpacing = 0;
 let currentAlignment = 'center';
 let generatedDataUrl = null; 
 
@@ -91,6 +92,8 @@ const brightnessSlider = document.getElementById('brightnessSlider');
 const brightLabel = document.getElementById('brightLabel');
 const weightSlider = document.getElementById('weightSlider');
 const weightLabel = document.getElementById('weightLabel');
+const spacingSlider = document.getElementById('spacingSlider');
+const spacingLabel = document.getElementById('spacingLabel');
 const indicator = document.getElementById('indicator');
 
 const searchBtn = document.getElementById('searchBtn');
@@ -119,13 +122,32 @@ function updateTextColor() {
     fontPreview.style.color = hslColor;
     indicator.style.backgroundColor = hslColor;
     brightnessSlider.style.background = `linear-gradient(to right, #000000, hsl(${currentHue}, 100%, 50%), #ffffff)`;
+
     
-    if (parseInt(currentBrightness) < 30) {
-        const opacity = (30 - currentBrightness) / 30;
-        fontPreview.style.textShadow = `0 0 12px rgba(255, 255, 255, ${opacity * 0.85}), 0 0 4px rgba(255, 255, 255, ${opacity * 0.5})`;
+    fontPreview.style.textShadow = 'none';
+    
+    fontPreview.style.filter = `
+        drop-shadow(0px 0px 3px #ffffff) 
+        drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.9)) 
+        drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.7)) 
+        drop-shadow(0px 0px 45px rgba(255, 255, 255, 0.5))
+    `;
+}
+
+function updateWeightDOM() {
+    const weightValue = parseInt(currentWeight);
+    const userSize = parseInt(sizeSlider.value);
+    
+    if (weightValue > 400) {
+        const strokeWidth = userSize * ((weightValue - 400) / 500) * 0.04;
+        fontPreview.style.webkitTextStroke = `${strokeWidth}px currentColor`;
+        fontPreview.style.fontWeight = 'normal'; 
     } else {
-        fontPreview.style.textShadow = '0 0 20px rgba(255, 255, 255, 0.15)';
+        fontPreview.style.webkitTextStroke = '0px transparent';
+        fontPreview.style.fontWeight = 'normal';
     }
+
+    updateTextColor();
 }
 
 searchBtn.addEventListener('click', () => {
@@ -188,13 +210,20 @@ brightnessSlider.addEventListener('input', (e) => {
 weightSlider.addEventListener('input', (e) => {
     currentWeight = e.target.value;
     weightLabel.textContent = currentWeight;
-    fontPreview.style.fontWeight = currentWeight;
+    updateWeightDOM();
+});
+
+spacingSlider.addEventListener('input', (e) => {
+    currentSpacing = e.target.value;
+    spacingLabel.textContent = `${currentSpacing}px`;
+    fontPreview.style.letterSpacing = `${currentSpacing}px`;
 });
 
 sizeSlider.addEventListener('input', (e) => {
     const currentSize = e.target.value;
     fontPreview.style.fontSize = `${currentSize}px`;
     sizeLabel.textContent = `${currentSize}px`;
+    updateWeightDOM();
 });
 
 textInput.addEventListener('input', () => {
@@ -266,8 +295,10 @@ applyBtn.addEventListener('click', () => {
         const testCanvas = document.createElement('canvas');
         const testCtx = testCanvas.getContext('2d');
         const fontSize = userSize * scaleFactor;
+        const scaledSpacing = currentSpacing * scaleFactor;
         
         testCtx.font = `normal ${fontSize}px "${activeFont.fontFamily}"`;
+        testCtx.letterSpacing = `${scaledSpacing}px`;
         const maxCanvasTextWidth = previewTextWidth * scaleFactor;
 
         const lines = wrapText(testCtx, textToRender, maxCanvasTextWidth);
@@ -289,6 +320,7 @@ applyBtn.addEventListener('click', () => {
         ctx.shadowOffsetY = 0;
 
         ctx.font = `normal ${fontSize}px "${activeFont.fontFamily}"`;
+        ctx.letterSpacing = `${scaledSpacing}px`;
         ctx.fillStyle = `hsl(${currentHue}, 100%, ${currentBrightness}%)`;
         ctx.textBaseline = 'top'; 
 
@@ -344,6 +376,11 @@ applyBtn.addEventListener('click', () => {
             previewImg.style.backgroundColor = 'rgba(0,0,0,0.2)'; 
         }
 
+        const textDesc = modalBox.querySelector('p') || Array.from(modalBox.querySelectorAll('div, p, span')).find(el => el.textContent.includes('качест') || el.textContent.includes('x5') || el.textContent.includes('х5'));
+        if (textDesc) {
+            textDesc.innerHTML = 'Нажмите «Скачать PNG».<br><strong style="color: #ffcc00; display: block; margin-top: 8px; font-size: 13px;">Если кнопка не работает (iPhone/Google chrome) — попробуйте другой browser (Safari) или просто зажмите картинку ниже пальцем и выберите «Сохранить в Фото».</strong>';
+        }
+
         downloadModal.style.display = 'flex';
 
         closeModalBtn.onclick = () => {
@@ -370,3 +407,4 @@ confirmDownloadBtn.addEventListener('click', (e) => {
 
 updateSlider(currentIndex);
 updateTextColor();
+updateWeightDOM();
