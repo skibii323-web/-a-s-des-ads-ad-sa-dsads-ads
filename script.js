@@ -129,7 +129,7 @@ function updateTextColor() {
     fontPreview.style.filter = `
         drop-shadow(0px 0px 3px #474646) 
         drop-shadow(0px 0px 8px rgba(114, 114, 114, 0.9)) 
-        drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.7)) 
+        drop-shadow(0px 0px 20px rgba(40, 40, 40, 0.7)) 
         drop-shadow(0px 0px 45px rgba(255, 255, 255, 0.5))
     `;
 }
