@@ -220,6 +220,32 @@ nextBtn.addEventListener('click', () => {
     updateSlider(currentIndex);
 });
 
+function wrapText(ctx, text, maxWidth) {
+    const lines = [];
+    const paragraphs = text.split('\n');
+    
+    paragraphs.forEach(paragraph => {
+        const words = paragraph.split(' ');
+        let currentLine = '';
+
+        for (let n = 0; n < words.length; n++) {
+            let testLine = currentLine + (currentLine ? ' ' : '') + words[n];
+            let metrics = ctx.measureText(testLine);
+            
+            if (metrics.width > maxWidth && n > 0) {
+                lines.push(currentLine);
+                currentLine = words[n];
+            } else {
+                currentLine = testLine;
+            }
+        }
+        if (currentLine) {
+            lines.push(currentLine);
+        }
+    });
+    return lines;
+}
+
 applyBtn.addEventListener('click', () => {
     const textToRender = fontPreview.textContent;
     const activeFont = fontsData[currentIndex];
@@ -240,44 +266,11 @@ applyBtn.addEventListener('click', () => {
         const testCanvas = document.createElement('canvas');
         const testCtx = testCanvas.getContext('2d');
         const fontSize = userSize * scaleFactor;
-        testCtx.font = `${currentWeight} ${fontSize}px "${activeFont.fontFamily}"`;
-
+        
+        testCtx.font = `normal ${fontSize}px "${activeFont.fontFamily}"`;
         const maxCanvasTextWidth = previewTextWidth * scaleFactor;
 
-        const lines = [];
-        const paragraphs = textToRender.split('\n');
-
-        paragraphs.forEach(paragraph => {
-            const words = paragraph.split(' ');
-            let currentLine = '';
-
-            words.forEach(word => {
-                let testLine = currentLine + (currentLine ? ' ' : '') + word;
-                let metrics = testCtx.measureText(testLine);
-
-                if (metrics.width <= maxCanvasTextWidth) {
-                    currentLine = testLine;
-                } else {
-                    if (testCtx.measureText(word).width > maxCanvasTextWidth) {
-                        for (let i = 0; i < word.length; i++) {
-                            let char = word[i];
-                            let testCharLine = currentLine + (currentLine && i === 0 ? ' ' : '') + char;
-                            
-                            if (testCtx.measureText(testCharLine).width <= maxCanvasTextWidth) {
-                                currentLine = testCharLine;
-                            } else {
-                                if (currentLine) lines.push(currentLine);
-                                currentLine = char;
-                            }
-                        }
-                    } else {
-                        if (currentLine) lines.push(currentLine);
-                        currentLine = word;
-                    }
-                }
-            });
-            if (currentLine) lines.push(currentLine);
-        });
+        const lines = wrapText(testCtx, textToRender, maxCanvasTextWidth);
 
         const lineHeight = fontSize * 1.5;
         const bottomBuffer = fontSize * 0.8; 
@@ -289,16 +282,23 @@ applyBtn.addEventListener('click', () => {
         canvas.width = maxCanvasTextWidth + (canvasPadding * 2);
         canvas.height = totalTextHeight + (canvasPadding * 2);
 
-        // ХОЛСТ ОСТАЕТСЯ ПРОЗРАЧНЫМ! Никакой заливки цветом тут нет.
-
-        ctx.font = `${currentWeight} ${fontSize}px "${activeFont.fontFamily}"`;
-        
-        // Никакого размытия и свечения на самом PNG файле
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.shadowColor = "transparent";
         ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
 
+        ctx.font = `normal ${fontSize}px "${activeFont.fontFamily}"`;
         ctx.fillStyle = `hsl(${currentHue}, 100%, ${currentBrightness}%)`;
         ctx.textBaseline = 'top'; 
+
+        const weightValue = parseInt(currentWeight);
+        if (weightValue > 400) {
+            ctx.strokeStyle = ctx.fillStyle;
+            ctx.lineWidth = fontSize * ((weightValue - 400) / 500) * 0.04;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+        }
 
         let xPos = canvasPadding;
         if (currentAlignment === 'center') {
@@ -313,6 +313,9 @@ applyBtn.addEventListener('click', () => {
 
         let yPos = canvasPadding;
         lines.forEach(line => {
+            if (weightValue > 400) {
+                ctx.strokeText(line, xPos, yPos);
+            }
             ctx.fillText(line, xPos, yPos);
             yPos += lineHeight;
         });
@@ -335,16 +338,10 @@ applyBtn.addEventListener('click', () => {
         }
         previewImg.src = generatedDataUrl;
 
-        // --- ФИШКА ТУТ: Если текст тёмный/чёрный, то ПРЕВЬЮШКЕ в модалке принудительно даём БЕЛЫЙ фон, чтобы её видели при зажатии пальцем ---
         if (parseInt(currentBrightness) < 30) {
             previewImg.style.backgroundColor = '#ffffff';
         } else {
-            previewImg.style.backgroundColor = 'rgba(0,0,0,0.2)'; // Для обычного светлого текста оставляем стандартный полутёмный фон
-        }
-
-        const textDesc = modalBox.querySelector('p');
-        if (textDesc) {
-            textDesc.innerHTML = 'Нажмите «Скачать PNG».<br><strong style="color: #ffcc00; display: block; margin-top: 8px; font-size: 13px;">Если кнопка не работает (iPhone/Google chrome) — попробуйте другой браузер (Safari) или просто зажмите картинку ниже пальцем и выберите «Сохранить в Фото».</strong>';
+            previewImg.style.backgroundColor = 'rgba(0,0,0,0.2)'; 
         }
 
         downloadModal.style.display = 'flex';
